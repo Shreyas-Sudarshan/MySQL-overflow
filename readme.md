@@ -103,7 +103,7 @@ GROUP BY product_id;
  In SQL, when you're using GROUP BY, any non-aggregated column in the SELECT clause must be part of the GROUP BY clause as well.
 The DISTINCT keyword is generally unnecessary when using GROUP BY, because GROUP BY already ensures uniqueness based on the specified columns.
 
-
+select concat(sum(salary)+'is the salary') as message; --displayes message
 
 dml
 
@@ -277,6 +277,7 @@ CLOSE emp_cursor;
 errors in MySQL
 used to handle and continue instead of breaking the program
 CONTINUE Handler:
+Use CONTINUE when you want the procedure to keep executing after an error.
 Used to ignore the error or continue execution after the error occurs.
 The program moves to the next statement after the error.
 DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
@@ -284,3 +285,54 @@ BEGIN
         SELECT 'An error occurred, but execution continues.' AS message;
     END;
 eg- if u enter into table that not exists this message displays
+
+exit handler
+DECLARE EXIT HANDLER FOR SQLEXCEPTION
+Use EXIT when the error is critical and you want to stop execution.
+
+not found handler
+This is commonly used with cursors to handle the condition where no more rows are found.
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+handling errors for specific error codes
+DECLARE EXIT HANDLER FOR 1146 -- Error code for "Table doesn't exist"
+    BEGIN
+        SELECT 'The table does not exist. Exiting procedure.' AS message;
+    END;
+
+Cannot be used directly in SQL queries.
+Called using the CALL statement. Example: CALL my_procedure();
+Can have IN, OUT, and INOUT parameters.
+---------------------------------------------
+functions in mysql
+Used to return a single value, typically as part of a query.
+Can be used directly in SQL queries, such as SELECT or WHERE.
+Only has IN parameters (input-only).
+Must return a value using RETURN.
+DELIMITER $$
+CREATE FUNCTION divide_numbers(num1 DOUBLE, num2 DOUBLE)
+RETURNS DOUBLE
+DETERMINISTIC 
+READS SQL DATA -- Indicates the function only reads data and doesn't modify it
+BEGIN
+    -- Check if the denominator is zero
+    IF num2 = 0 THEN
+        RETURN NULL; -- Return NULL if division by zero is attempted
+    ELSE
+        RETURN num1 / num2; -- Perform the division
+    END IF;
+END $$
+DELIMITER ;
+SELECT divide_numbers(10, 2) AS result;
+deterministic- Indicates that the function will always return the same result for the same input values.
+reads sql data/contains sql/no sql are the other infos
+delete procedure and function
+drop procedure name;
+drop function name;
+
+the information database schema contains list of procedurs and functions
+SELECT routine_schema,ROUTINE_NAME,routine_type
+FROM information_schema.ROUTINES
+WHERE ROUTINE_TYPE = 'PROCEDURE'
+  AND ROUTINE_SCHEMA = DATABASE();
+  gives the schema name of function and procedure/function
