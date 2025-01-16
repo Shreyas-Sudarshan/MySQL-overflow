@@ -1,0 +1,35 @@
+select keyword order-----
+select-> distinct-> from-> join -> where -> group by -> having->order by->limit->offset
+SELECT  product_id, 
+       SUM(quantity * price) AS total_sales
+FROM Orders
+JOIN Products ON Orders.product_id = Products.product_id
+WHERE order_date >= '2025-01-01'
+GROUP BY product_id
+HAVING SUM(quantity * price) > 500
+ORDER BY total_sales DESC
+LIMIT 10 OFFSET 5;
+
+limit -no of rows to display. offset -x no of first rowsd to skip
+
+order by---used with aggregate function which is used in select 
+We want to calculate the total sales per product (i.e., quantity * price) and group the result by product_id to get the total sales for each product.
+SELECT product_id, 
+       SUM(quantity * price) AS total_sales
+FROM Orders
+GROUP BY product_id;
+
+ In SQL, when you're using GROUP BY, any non-aggregated column in the SELECT clause must be part of the GROUP BY clause as well.
+The DISTINCT keyword is generally unnecessary when using GROUP BY, because GROUP BY already ensures uniqueness based on the specified columns.
+
+not null used when describing table column values, is not null in where comparison
+aggregate functions count sum avg max min
+distinct ------select distinct name from user
+limit. limit no of rows
+select concat(sum(salary)+'is the salary') as message; --displayes message
+
+comparison operators----  =,!= or <> not equal to , >,<,>=,<=
+SELECT * FROM Employees
+WHERE department IN ('Sales', 'Marketing', 'HR'); instead of dept='a' and dept='f'
+like is used for matching
+where name like 'j%'  ---returns name starting from j

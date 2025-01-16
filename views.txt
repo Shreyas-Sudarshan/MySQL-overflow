@@ -1,0 +1,72 @@
+independenrt of database design
+A view in SQL is like a virtual table. It doesn’t store data itself but provides a way to 
+look at data from one or more real tables in a structured way.
+ It is a permanent object in the database, just like a table. However, unlike a table, a view does not store actual 
+ data. Instead, it stores the SQL query used to generate the view.
+If you often use a long query, you can save it as a view to make your life easier.
+Data Abstraction: You can hide the actual table structure and provide a cleaner, user-friendly view.
+copies content from another table
+can perfrom any operations on views
+it is a temporary storage unlike temporary
+
+CREATE VIEW JohnOrders AS
+SELECT order_id, order_date, total_amount
+FROM Orders
+WHERE customer_name = 'John';
+
+to see all views in your database
+SHOW FULL TABLES WHERE table_type = 'VIEW';
+
+updating view
+CREATE OR REPLACE VIEW view_name AS
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+
+DROP VIEW view_name;
+
+An updatable view is a SQL view where you can perform INSERT, UPDATE, or DELETE operations, and those changes
+will directly affect the underlying table(s). However, not all views are updatable—there are specific rules 
+and restrictions that determine whether a view can be updated.
+
+if conditions are met then
+UPDATE view_name
+SET column1 = 'value'
+WHERE condition;
+
+INSERT INTO view_name (column1, column2)
+VALUES ('value1', 'value2');
+
+DELETE FROM view_name
+WHERE condition;
+
+restrictions
+A view must be based on one table only. Views with JOINs or combining multiple tables are not updatable.
+Views that use aggregate functions like SUM(), AVG(), COUNT(), etc., are not updatable.
+If a view contains calculated or derived columns (e.g., price * quantity), it is not updatable.
+Views with these clauses are not updatable because they change the structure of the result set.
+All Columns Must Be from the Base Table:
+Primary Key or Unique Constraint:
+A view explicitly marked as WITH READ ONLY cannot be updated. 
+Need 1 on 1 relation between row of view and row of base table
+CREATE VIEW ReadOnlyView AS
+SELECT emp_id, emp_name                         cannot update
+FROM Employees
+WITH READ ONLY;                                  
+
+when u perform operations on view make sure it adheres the conditions of view during creation.
+eg if view has year >2005
+in operation u shouldnt add value<2005 or else that update will not get added
+
+use -- with check option --in the end in view creation. it will throw an error
+
+with local check option
+used in nested views. the changes made in view2 will only affect to view2 and not view1.
+
+with cascade check option
+check is implemented for the parent as well
+
+show full tables; shows base tables and views
+
+show create view viewname; deinition of the view
+drop view view_name;

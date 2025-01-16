@@ -1,0 +1,32 @@
+functions in mysql
+Used to return a single value, typically as part of a query.
+Can be used directly in SQL queries, such as SELECT or WHERE.
+Only has IN parameters (input-only).
+Must return a value using RETURN.
+DELIMITER $$
+CREATE FUNCTION divide_numbers(num1 DOUBLE, num2 DOUBLE)
+RETURNS DOUBLE
+DETERMINISTIC 
+READS SQL DATA -- Indicates the function only reads data and doesn't modify it
+BEGIN
+    -- Check if the denominator is zero
+    IF num2 = 0 THEN
+        RETURN NULL; -- Return NULL if division by zero is attempted
+    ELSE
+        RETURN num1 / num2; -- Perform the division
+    END IF;
+END $$
+DELIMITER ;
+SELECT divide_numbers(10, 2) AS result;
+deterministic- Indicates that the function will always return the same result for the same input values.
+reads sql data/contains sql/no sql are the other infos
+delete procedure and function
+drop procedure name;
+drop function name;
+
+the information database schema contains list of procedurs and functions
+SELECT routine_schema,ROUTINE_NAME,routine_type
+FROM information_schema.ROUTINES
+WHERE ROUTINE_TYPE = 'PROCEDURE'
+  AND ROUTINE_SCHEMA = DATABASE();
+  gives the schema name of function and procedure/function

@@ -1,0 +1,49 @@
+triggers are a set of actions that happen by itslef on certain instructions .
+before after    insert update delete   
+new and old keywords
+In MySQL, NEW and OLD are special keywords used in triggers to refer to the values of columns before and after 
+a database operation (like INSERT, UPDATE, or DELETE). They allow you to access or manipulate data during these
+ operations.
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON Users
+FOR EACH ROW
+BEGIN
+    INSERT INTO UserLogs (action)
+    VALUES (CONCAT('User ', NEW.username, ' added'));
+END;
+
+SHOW TRIGGERS;
+DROP TRIGGER trigger_name;
+DISABLE TRIGGER trigger_name ON table_name;
+ENABLE TRIGGER trigger_name ON table_name;
+we cannot directly alter triggers in sql. drop the old one and create a new one.
+
+---------------------------------------------------------------------------------------------------
+check if schedulers are on  
+SHOW VARIABLES LIKE 'event_scheduler';
+Events in MySQL are database objects that allow you to schedule tasks or operations to be performed automatically at 
+specified intervals or times
+syntax
+CREATE EVENT event_name
+ON SCHEDULE { AT timestamp | EVERY interval STARTS timestamp ENDS timestamp }
+DO
+BEGIN
+    -- SQL statements to execute
+END;
+
+CREATE EVENT delete_logs_event
+ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 DAY | ON SCHEDULE EVERY 1 DAY STARTS CURRENT_DATE + INTERVAL 1 DAY
+ Schedules it for 24 hours from now.                | every 1 day from today midnight. no end
+DO
+BEGIN
+    DELETE FROM Logs;
+END;--------------------------------------
+ON SCHEDULE EVERY 1 WEEK
+STARTS CURRENT_DATE                                with start and end date
+ENDS CURRENT_DATE + INTERVAL 1 MONTH
+--------------------------------------------------------------
+SHOW EVENTS;
+drop events event_name;
+ALTER EVENT update_stock_event 
+ALTER EVENT update_stock_event enable/disable
+ON SCHEDULE EVERY 2 DAY;

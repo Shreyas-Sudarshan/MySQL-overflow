@@ -1,0 +1,33 @@
+dml
+
+update value of a column
+UPDATE employees
+SET salary = 60000
+WHERE employee_id = 5;
+
+add column
+ALTER TABLE employees
+ADD COLUMN hire_date DATE;
+
+change column name
+ALTER TABLE employees
+CHANGE COLUMN hire_date joining_date DATE;
+
+drop column
+ALTER TABLE employees
+DROP COLUMN joining_date;
+
+remove rows based on condition
+DELETE FROM employees
+WHERE employee_id = 5;
+
+rename table
+RENAME TABLE employees TO staff;
+
+
+drop table name
+
+rename database
+RENAME DATABASE old_db_name TO new_db_name;
+
+DROP DATABASE new_database;

@@ -1,0 +1,8 @@
+temporary tables
+similar to table
+create temporary table name()..........
+drop temporary table name()
+show temp_table_name
+insert into temp_name
+select * from temp_name
+

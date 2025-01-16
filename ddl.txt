@@ -1,0 +1,25 @@
+create database database_name;
+drop database database_name;
+use database_name;
+show databases;
+
+show tables;set of tables
+desc table_name; gives rows and columns
+operators----- and ,or ,not, in, between, like ,is null, is not null
+in is substitute for or
+creating table
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,         -- User ID as primary key
+    username VARCHAR(50) NOT NULL,  -- Username, required field
+    email VARCHAR(100),             -- Email, optional field
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP -- Default timestamp
+);
+
+drop table tablename;
+
+
+
+
+
+
+

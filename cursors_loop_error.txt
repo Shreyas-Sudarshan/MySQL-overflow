@@ -1,0 +1,77 @@
+cursor is a sql object used to traverse sql query row by row. they work on select query. they store the result of select for further operations
+declare ->open->fetch->close
+
+DECLARE emp_cursor CURSOR FOR 
+    SELECT name, salary 
+    FROM employees;
+
+declare error handler
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+OPEN emp_cursor;
+
+WHILE done = 0 DO
+        FETCH emp_cursor INTO emp_name, emp_salary;
+
+        -- Process each row (for example, display or log it)
+        IF done = 0 THEN
+            SELECT CONCAT('Employee: ', emp_name, ', Salary: ', emp_salary) AS message;
+        END IF;
+    END WHILE;
+
+CLOSE emp_cursor;
+END $$
+
+using repeat loop
+REPEAT
+        FETCH emp_cursor INTO emp_name, emp_salary;
+
+        -- Process each row (for example, display or log it)
+        IF done = 0 THEN
+            SELECT CONCAT('Employee: ', emp_name, ', Salary: ', emp_salary) AS message;
+        END IF;
+    UNTIL done = 1
+    END REPEAT;
+
+loop
+OPEN emp_cursor;
+
+cursor_loop: LOOP
+  FETCH emp_cursor INTO emp_name, emp_salary;
+ IF done = 1 THEN
+     LEAVE cursor_loop;
+    END IF;
+   SELECT CONCAT('Employee: ', emp_name, ', Salary: ', emp_salary) AS message;
+    END LOOP;
+
+CLOSE emp_cursor;
+-----------------------------------------------------------------------------------------
+errors in MySQL
+used to handle and continue instead of breaking the program
+CONTINUE Handler:
+Use CONTINUE when you want the procedure to keep executing after an error.
+Used to ignore the error or continue execution after the error occurs.
+The program moves to the next statement after the error.
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+BEGIN
+        SELECT 'An error occurred, but execution continues.' AS message;
+    END;
+eg- if u enter into table that not exists this message displays
+
+exit handler
+DECLARE EXIT HANDLER FOR SQLEXCEPTION
+Use EXIT when the error is critical and you want to stop execution.
+
+not found handler
+This is commonly used with cursors to handle the condition where no more rows are found.
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+handling errors for specific error codes
+DECLARE EXIT HANDLER FOR 1146 -- Error code for "Table doesn't exist"
+    BEGIN
+        SELECT 'The table does not exist. Exiting procedure.' AS message;
+    END;
+
+Cannot be used directly in SQL queries.
+Called using the CALL statement. Example: CALL my_procedure();
+Can have IN, OUT, and INOUT parameters.

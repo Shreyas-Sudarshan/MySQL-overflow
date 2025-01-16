@@ -1,0 +1,27 @@
+datatypes in MySQL
+integer---
+tinyint 1byte
+smallint 2bytes
+mediumint 3 bytes
+int/integer 4 bytes
+bigint 8 bytes
+floating point
+float 4bytes    7 decimal precesion
+double 8bytes    15 decimal precesion
+decimal(65,35)
+bit Values are stored as binary numbers but interpreted as integers when queried.
+Boolean true false ,1-0
+binary Stores raw binary strings. 101,as1 gets convered to binary form and padded with /0 if required.
+Enum and set(contains a set of options to chose from . Enum only 1 can be chosen .set multiple options can be chosen.
+upto 64)
+char(0-255) varchar(0-65000)
+tinytext 
+mediumtext 
+text 
+largetext 
+blob
+date 
+time 
+datetime 
+timestamp 
+year

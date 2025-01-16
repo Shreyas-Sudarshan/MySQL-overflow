@@ -1,0 +1,86 @@
+procedures are function calls
+delimeter//
+create procedure display()
+begin
+select * from student;
+end
+delimeter;
+call display();
+----------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE get_employee_salary_from_emp_id(
+    IN p_employee_id INT,              -- `IN` parameter: employee ID to search for
+    OUT p_current_salary DECIMAL(10,2),-- `OUT` parameter: to return current salary
+    INOUT p_new_salary DECIMAL(10,2)   -- `INOUT` parameter: salary to adjust
+)
+BEGIN
+    -- Step 1: Retrieve the current salary of the employee and assign to OUT parameter
+    SELECT salary INTO p_current_salary FROM employees WHERE employee_id = p_employee_id;
+    
+    -- Step 2: Modify the salary (e.g., increase by 10%) using the INOUT parameter
+    SET p_new_salary = p_new_salary * 1.10;
+
+    -- Step 3: Optionally, update the salary in the database (if required)
+    UPDATE employees
+    SET salary = p_new_salary
+    WHERE employee_id = p_employee_id;
+    
+END $$
+
+DELIMITER ;
+
+-- Step 1: Declare session variables
+SET @current_salary = 0;  -- This will store the current salary (OUT parameter)
+SET @new_salary = 50000;  -- Initial salary to be passed as INOUT parameter (adjusted by the procedure)
+
+-- Step 2: Call the stored procedure
+CALL process_employee_salary(1, @current_salary, @new_salary);
+
+-- Step 3: Retrieve the values
+SELECT @current_salary AS current_salary, @new_salary AS updated_salary;
+
+session variables begin with @
+-- Step 1: Declare session variables
+SET @current_salary = 0;  -- This will store the current salary (OUT parameter)
+SET @new_salary = 50000;  -- Initial salary to be passed as INOUT parameter (adjusted by the procedure)
+
+-- Step 2: Call the stored procedure
+CALL process_employee_salary(1, @current_salary, @new_salary);
+
+-- Step 3: Retrieve the values
+SELECT @current_salary AS current_salary, @new_salary AS updated_salary;
+
+-------------------------------------------
+variables inside the stored procedure are used for calculation purpose inside the procedure.
+begin
+declare e_salary int default 0;
+select salary into e_salary from employee where e_id-emp_id;
+IF emp_salary < 50000 THEN
+        set salary_level='low;
+    ELSE
+        set salary_level='high'
+    END IF;
+end //
+delimeter;
+set @salary_level  ='o';
+call()
+select @salary_level;
+
+for out initialization as session variable is not required but no issues if done. for inout it is required.
+-------------------------------
+case condition
+SELECT e_id, salary,
+       CASE 
+           WHEN salary < 30000 THEN 'Low'
+           WHEN salary BETWEEN 30000 AND 70000 THEN 'Medium'
+           ELSE 'High'
+       END AS salary_level
+FROM employee;
+
+UPDATE employee
+SET salary_level = CASE 
+                       WHEN salary < 30000 THEN 'Low'
+                       WHEN salary BETWEEN 30000 AND 70000 THEN 'Medium'
+                       ELSE 'High'
+                   END;

@@ -1,0 +1,34 @@
+integrity constraints
+check . age INT CHECK (age >= 0 AND age <= 120)
+primary key .emp_id INT PRIMARY KEY
+foreign key (empid) reference department(empid)
+unique Ensures a column's values are unique but allows one 0 value(multipole null cuz null value not known).
+not null
+default  country VARCHAR(50) DEFAULT 'India'
+composite primary key CREATE TABLE TableName (
+    column1 DataType,
+    column2 DataType,
+    PRIMARY KEY (column1, column2)
+);
+composite foreign keys
+CREATE TABLE OrderDetails (
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id, product_id) REFERENCES Orders(order_id, product_id));
+if not exists   --create table if not exists name(a,s,d)
+auto_increment usually with primary key. default 1
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT,
+    username VARCHAR(50),
+    email VARCHAR(100),
+    PRIMARY KEY (user_id)
+) AUTO_INCREMENT = 100;
+only 1 auto_increment per table
+we can also name the foreign key. default naming is done by MySQL.
+CREATE TABLE OrderDetails (
+    order_id INT PRIMARY KEY, 
+    product_id INT,
+    quantity INT,
+    CONSTRAINT order_fk FOREIGN KEY (product_id) REFERENCES Orders(product_id)
+);
