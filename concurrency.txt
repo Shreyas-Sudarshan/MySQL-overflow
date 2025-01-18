@@ -1,0 +1,4 @@
+Concurrency refers to the ability of a database or a system to handle multiple transactions or
+ operations simultaneously. In simpler terms, it ensures that multiple users or processes can work 
+ with the database at the same time without interfering with each other and while maintaining data consistency.
+

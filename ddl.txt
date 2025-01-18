@@ -17,6 +17,11 @@ CREATE TABLE Users (
 
 drop table tablename;
 
+aliasing
+can use alias directly for table or can write as for table
+SELECT e.employ_name, e.employee_salary 
+FROM employee e;
+ for column also its the same cas. can use as ,if not directly write the alias name
 
 
 

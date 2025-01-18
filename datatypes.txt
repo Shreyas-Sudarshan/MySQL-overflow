@@ -1,9 +1,10 @@
 datatypes in MySQL
 integer---
-tinyint 1byte
+tinyint 1byte(-128 to 127)
+unsigned tinyint (0-255)
 smallint 2bytes
-mediumint 3 bytes
-int/integer 4 bytes
+mediumint 3 bytes (-8m to 8m)
+int/integer 4 bytes(-2b to 2b)
 bigint 8 bytes
 floating point
 float 4bytes    7 decimal precesion
@@ -16,9 +17,9 @@ Enum and set(contains a set of options to chose from . Enum only 1 can be chosen
 upto 64)
 char(0-255) varchar(0-65000)
 tinytext 
-mediumtext 
+mediumtext 16 million characters
 text 
-largetext 
+largetext  textbooks
 blob
 date 
 time 

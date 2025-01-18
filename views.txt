@@ -70,3 +70,10 @@ show full tables; shows base tables and views
 
 show create view viewname; deinition of the view
 drop view view_name;
+create bor replace views;
+
+deleting a row in a view can delete the corresponding row in the parent table, but this depends 
+on the type of view and how it is defined.
+Yes, inserting into or updating a view can also affect the parent table, but it depends on whether 
+the view is updatable or non-updatable.
+

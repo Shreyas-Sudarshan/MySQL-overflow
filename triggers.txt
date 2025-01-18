@@ -47,3 +47,10 @@ drop events event_name;
 ALTER EVENT update_stock_event 
 ALTER EVENT update_stock_event enable/disable
 ON SCHEDULE EVERY 2 DAY;
+
+triggers
+ old is the value of column of old table 
+ new is for new table
+ update operation -old,
+ newinsert- new
+ delete-old

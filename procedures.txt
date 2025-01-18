@@ -84,3 +84,8 @@ SET salary_level = CASE
                        WHEN salary BETWEEN 30000 AND 70000 THEN 'Medium'
                        ELSE 'High'
                    END;
+
+parameter validation using signal
+SIGNAL SQLSTATE '45000' 
+SET MESSAGE_TEXT = 'Custom error message';
+ sends a emssage if error in cli
