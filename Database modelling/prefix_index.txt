@@ -1,0 +1,13 @@
+A prefix column refers to indexing only the first part (or prefix) of a string column rather than the entire value. 
+It is a technique used to create partial indexes on long string columns to save space and improve query performance.
+CREATE INDEX index_name ON table_name (column_name(N));
+SELECT * FROM customers WHERE Email LIKE 'john.doe%';
+Limitations of Prefix Index
+Not Suitable for Full Matches:
+Uniqueness Constraint:
+show indexes in table_name; 
+
+Duplicate Indexes: Same index on the same column(s) multiple times.
+Redundant Indexes: Indexes that duplicate the functionality of existing indexes, offering no 
+additional performance benefit.
+Both types waste space, increase maintenance overhead, and can reduce performance

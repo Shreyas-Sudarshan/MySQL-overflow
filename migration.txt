@@ -1,0 +1,4 @@
+Database Schema Migration
+As your application grows and evolves, you might need to update the structure of your database 
+(e.g., adding new columns, changing data types, or renaming tables).
+Example: You might have a table users and later decide to add a birthdate column or rename email to user_email.

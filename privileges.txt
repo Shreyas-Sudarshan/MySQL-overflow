@@ -1,0 +1,11 @@
+https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html
+creating
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+DROP USER 'username'@'host';
+ALTER USER 'username'@'host' IDENTIFIED BY 'new_password';
+GRANT privilege_type ON database.table TO 'username'@'host';
+privilege_type=SELECT, INSERT, UPDATE, ALL PRIVILEGES
+After granting privileges or changing user permissions, it’s important to flush them so that the changes take effect.
+flush privileges;
+REVOKE privilege_type ON database.table FROM 'username'@'host';
+

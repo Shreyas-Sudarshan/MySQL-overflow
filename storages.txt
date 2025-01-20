@@ -1,0 +1,8 @@
+Storage Engine	                       Key Features	            Best Use Case
+InnoDB	                 Transactions, row-level locking	         Most general-purpose applications
+Memory	                 Fast, in-memory storage	                Temporary tables, caching
+MyISAM	                 Fast reads, table locking	                Simple, read-heavy applications
+CSV	                     Plain-text storage	                         Data export/import
+Archive	                 Compressed storage	                    Logs, historical data
+NDB	                     Distributed, high-availability	            Real-time systems, telecom apps
+Federated	            Remote database access	                Accessing remote data

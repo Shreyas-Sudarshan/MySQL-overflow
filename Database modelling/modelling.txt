@@ -1,0 +1,26 @@
+understand requirement-> conceputal req->logical req->physical models
+well setup database ensures consistency, scalability, easy of maintainance, accessibility.
+relationships
+one to one -one table content has relation with other table content of only one row
+one to many - one table content has relation with other table content of many rows
+many to many -2 tables are related to each other usually through a third table
+
+entity relation diagram
+entities -student/course
+attributes -name/rollno
+relations -1-1/1-many
+
+check using er diagrams inside mysql.
+
+normalization - efficient way of neatly organizing data
+1NF
+Every piece of information in a cell must be atomic (indivisible).
+Don't store multiple values in a single cell.
+There should be no repeating groups (no extra columns for similar data).
+2NF
+A table must first satisfy 1NF.
+If there is a composite primary key (a key made up of more than one column), every other column in the table must 
+depend on the entire primary key, not just part of it.
+3NF
+A table must first satisfy 2NF.
+No non-key column should depend on another non-key column. Every non-key column must depend only on the primary key.

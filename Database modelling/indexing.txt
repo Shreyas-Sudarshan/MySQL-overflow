@@ -1,0 +1,51 @@
+Think of an index as a shortcut in a database. Instead of searching every single row to find something 
+(like flipping through all the pages of a book to find a topic), the database uses an index to jump straight
+to the relevant rows.
+Types of index
+Primary Index, Unique Index, Clustered Index- Clustered index on OrderDate in an Orders table will
+store rows in chronological order. Non-Clustered Index
+Doesn’t change the table’s row order but creates a separate structure pointing to the rows. 
+You can have multiple non-clustered indexes.
+Composite Index
+An index on multiple columns together.
+
+simple
+CREATE INDEX idx_name ON students (name);
+SELECT * FROM students WHERE name = 'John';
+once using index queries will get faster
+
+Unique
+CREATE UNIQUE INDEX idx_email ON users (email);
+INSERT INTO users (UserID, Username, Email) VALUES (4, 'alex88', 'john@gmail.com');
+The database will throw an error because the email john@gmail.com already exists.
+
+Composite
+CREATE INDEX idx_customer_orderdate ON orders (CustomerID, OrderDate); 
+SELECT * FROM orders WHERE CustomerID = 101 AND OrderDate = '2025-01-01';
+ 
+ select statement queries everything whereas index is like a shortcut.
+
+Use the EXPLAIN or EXPLAIN PLAN command to see how a query is executed.
+EXPLAIN SELECT * FROM students WHERE name = 'John';
+
+CREATE TABLE employees (
+  employee_id INT PRIMARY KEY, -- Auto-indexed
+  name VARCHAR(100) UNIQUE     -- Auto-indexed
+);
+|
+|
+|
+|
+|
+random keywords----left
+SELECT LEFT(name, 3) FROM employees;
+This query gets the first 3 characters from the name column for each row.
+
+right- similar to left
+
+concat
+SELECT CONCAT(first_name, ' ', last_name) FROM employees;
+
+len
+SELECT LENGTH(name) FROM employees;
+This query returns the number of characters in the name column for each row.

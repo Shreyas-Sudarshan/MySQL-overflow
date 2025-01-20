@@ -1,4 +1,65 @@
 Concurrency refers to the ability of a database or a system to handle multiple transactions or
  operations simultaneously. In simpler terms, it ensures that multiple users or processes can work 
  with the database at the same time without interfering with each other and while maintaining data consistency.
+Common problems include:
+Dirty Read: One transaction reads uncommitted changes from another transaction
+Non-Repeatable Read:Data read by one transaction is modified by another transaction before the first transaction 
+completes.
+Phantom Read:A transaction reads set of rows, but another transaction inserts/deletes rows that match same criteria.
+Deadlock:Two transactions wait for each other to release resources, and neither can proceed.
 
+CONCURRENCY CONTROL MECHANISMS
+LOCKING
+1.read only locking -Allows multiple transactions to read the same data but prevents writes.
+2.write lock -Prevents other transactions from reading or writing the data being modified.
+3.isolation levels
+Controls how transactions interact with each other and how much they are isolated.
+Common isolation levels:
+Read Uncommitted: Allows dirty reads.
+Read Committed: Prevents dirty reads but allows non-repeatable reads.
+Repeatable Read: Prevents dirty and non-repeatable reads but allows phantom reads.
+Serializable: Fully isolates transactions, ensuring no dirty, non-repeatable, or phantom reads.
+------------------------------------------------------------
+
+read uncommited- The lowest isolation level. Transactions can read data that has been modified by other 
+transactions but not yet committed (dirty reads).
+transaction T1
+START TRANSACTION;
+UPDATE accounts SET balance = balance - 500 WHERE account_id = 1; -- Uncommitted-- No COMMIT yet
+transaction T2
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT balance FROM accounts WHERE account_id = 1; -- Reads uncommitted data
+----------------------------------------------------------
+read Committed-Transactions can only read committed data. This prevents dirty reads, but non-repeatable reads and 
+phantom reads can still occur.
+t1
+START TRANSACTION;
+UPDATE accounts SET balance = balance - 500 WHERE account_id = 1;
+-- No COMMIT yet
+T2
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+SELECT balance FROM accounts WHERE account_id = 1; -- Waits for T1 to commit
+------------------------------------------------------------
+repeatble read- Ensures that if a transaction reads the same data twice, the result will be the same 
+(no non-repeatable reads). However, it does not prevent phantom reads.
+t1
+START TRANSACTION;
+SELECT balance FROM accounts WHERE account_id = 1; -- Reads balance = 1000
+UPDATE accounts SET balance = balance - 500 WHERE account_id = 1;
+-- No COMMIT yet
+t2
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+SELECT balance FROM accounts WHERE account_id = 1; -- Waits for T1 to commit
+SELECT balance FROM accounts WHERE account_id = 1; -- Always returns the same value
+-----------------------------------------------------------------------
+serialization-The highest isolation level. Transactions are executed as if they were run sequentially, one at a time. 
+This prevents dirty reads, non-repeatable reads, and phantom reads.
+t1
+START TRANSACTION;
+SELECT * FROM accounts WHERE balance > 500; -- Finds 3 accounts
+INSERT INTO accounts (account_id, balance) VALUES (4, 600); -- New account
+-- No COMMIT yet 
+t2
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT * FROM accounts WHERE balance > 500; -- Waits for T1 to commit
+ 
